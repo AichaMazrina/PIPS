@@ -1,8 +1,14 @@
+
+
+
 # Function to remind my_birthday
 remind_me <- function(){
   my_birthday <- "5 april"
   return(my_birthday)
 }
+
+# DEMONSTATE THAT IT WORKS
+remind_me()
 
 
 # Function to find the answers to questions of week 1
@@ -21,6 +27,17 @@ cheat_function <- function(block_name) {
   }
 }
 
+# DEMONSTATE THAT IT WORKS
+plotstock <- function(symbol = "AAPL", year = "2023", filename = "stock_plot.png") {
+  start_date <- paste0(year, "-01-01")
+  end_date <- paste0(year, "-12-31")
+  getSymbols(symbol, from = start_date, to = end_date)
+  chartSeries(get(symbol))
+  dev.copy(png, filename)
+  dev.off()
+}
+
+cheat_function("plotstock")
 
 # Make art function
 make_art <- function(seed = NULL) {
@@ -33,14 +50,12 @@ make_art <- function(seed = NULL) {
   y <- runif(n_points, min = 0, max = 1000)
   z <- runif(n_points, min = 0, max = 1000)
   colors <- paste("#", sample(letters[1:6], n_points, replace = TRUE), sep = "")
-  
-  # Combine the points into a data frame
   art_data <- data.frame(x = x, y, z)
   art_plot <- plot_ly(data = art_data, y = ~y, z = ~z,  x = ~x, opacity = .8, color = colors)
   line_trace <- add_trace(art_plot, type = "scatter3d", mode = "lines", line = list(width = 2))
   return(line_trace)
 }
 
-?plot_ly
+# DEMONSTATE IT WORKS
 make_art() #Now turn and zoom in/out to get the desired image
 
